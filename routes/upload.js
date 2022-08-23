@@ -24,6 +24,10 @@ router.get("/", (req, res) => {
 
 router.post("/", upload.single('file'), async (req, res) => {
     // console.log(req.file.originalname);
+    if (!req.file) {
+        res.send("Bhai select to kar");
+        return
+    }
     const drive = getAuth();
 
     var metaData = {
