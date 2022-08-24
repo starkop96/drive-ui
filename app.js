@@ -39,7 +39,7 @@ app.get("/",async(req,res) => {
 })
 
 app.post("/",(req,res) => {
-    if (req.body.pass == "pass") {
+    if (req.body.pass == process.env.PASS ) {
         res.cookie('cookie', 'test',{httpOnly: true,signed:true});
         res.cookie("session","pass",{signed: true, httpOnly: true,maxAge: 1000 * 60 * 15});
         res.redirect("/");

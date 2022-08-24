@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const checkAuth = (req,res,next) => {
-    if (req.signedCookies.session == "pass") {
+    if (req.signedCookies.session == process.env.PASS) {
         req.isSignedIn = true ;
         next();
     } else{
