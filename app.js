@@ -19,10 +19,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser("process.env.SECRET"));
 app.use(checkAuth);
 
+
 app.use("/upload",uploadRoute);
 app.use("/folder",foldersRoute);
 app.use("/file",filesRoute);
 
+
+app.use(express.static("public"));
 app.set("view engine","ejs");
 
 app.get("/",async(req,res) => {

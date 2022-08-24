@@ -28,12 +28,12 @@
             <div class="flex justify-center items-center p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
                 style="width: 350px;">
                 <div class="justify-center items-center w-full">
-                    <form method="post" enctype="multipart/form-data" action="/upload" >
+                    <form id="form" method="post" enctype="multipart/form-data" action="/upload" >
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                         for="multiple_files">Upload File</label>
                     <input name="file"
                         class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                        id="multiple_files" type="file" multiple>
+                        id="fileInput" type="file" multiple>
                     <button type="submit" class="py-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" style="min-height: 40px; margin-top: 10px; margin-left: 30%;">Upload</button>
                     </form>
                 </div>
