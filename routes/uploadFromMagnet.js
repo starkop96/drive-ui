@@ -21,7 +21,8 @@ const opts = {
     verify: true,
     dht: true,
     tracker: true,
-    trackers: []
+    trackers: [],
+    destroyStoreOnDestroy: true,
 };
 
 var torrentClient = new WebTorrent(opts);
