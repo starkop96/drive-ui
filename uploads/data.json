@@ -1,13 +1,5 @@
 {
   "torrents": [
-    {
-      "name": "kali-linux-2022.3-installer-netinst-amd64.iso",
-      "infoHash": "759c53a4247c55ceb40845f6f4e537eedeed3bc1",
-      "progress": "100%",
-      "timeRemaining": 0,
-      "downloaded": "432.000 MB",
-      "speed": "6.377 MB/sec",
-      "totalSize": "432.000 MB"
-    }
+
   ]
 }

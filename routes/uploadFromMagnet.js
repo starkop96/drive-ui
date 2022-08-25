@@ -16,8 +16,8 @@ const db = new DB();
 const opts = {
     connections: 1000,
     uploads: 1,
-    tmp: path.join(__dirname,"..","uploads","tmp"),
-    path: path.join(__dirname,"..","uploads","tmp"),
+    tmp: path.join(__dirname, "..", "uploads", "tmp"),
+    path: path.join(__dirname, "..", "uploads", "tmp"),
     verify: true,
     dht: true,
     tracker: true,
@@ -25,6 +25,35 @@ const opts = {
 };
 
 var torrentClient = new WebTorrent(opts);
+
+
+var func = (drive, fileName, parentFolder, stream) => {
+    return new Promise(async (resolve, reject) => {
+        var metaData = {
+            name: fileName,
+            driveId: "0ALc6OebpravSUk9PVA",
+            parents: [parentFolder],
+        };
+
+        var media = {
+            body: stream,
+        }
+
+        var id = null;
+
+        drive.files.create({
+            resource: metaData,
+            media: media,
+            // fields: 'id',
+            supportsAllDrives: true,
+            supportsTeamDrives: true,
+        }).then((data) => {
+            id = data.data.id;
+            resolve(id);
+        });
+
+    })
+}
 
 
 const fileUploader = async (drive, fileName, parentFolder, stream) => {
@@ -119,37 +148,44 @@ async function downloadTorrent(link) {
         }
 
         var files = torrent.files;
+        let promises = []
         var length = files.length
         files.forEach(async (file) => {
             const source = file.createReadStream()
-            await fileUploader(drive, file.name, folderID, source);
+            let p = func(drive, file.name, folderID, source);
+            promises.push(p);
 
             length = length - 1
-            if (!length) {
-                torrentClient.remove(link, () => {
-                    console.log("Torrent Uploaded and Destroyed");
-                })
-                return
-            }
+            // if (!length) {
+            //     torrentClient.remove(link, () => {
+            //         console.log("Torrent Uploaded and Destroyed");
+            //     })
+            //     return
+            // }
         });
+        Promise.all(promises).then(() => {
+            torrentClient.remove(link, () => {
+                console.log("Torrent Uploaded and Destroyed");
+            })
+        })
     });
 };
 
 
 
 router.get("/", (req, res) => {
-    res.render("magnet", { data: false , hash: ""});
+    res.render("magnet", { data: false, hash: "" });
 });
 
 router.post("/", (req, res) => {
     const link = req.body.link;
 
     const info = parseTorrent(link);
-    const hash = info.infoHash ;
+    const hash = info.infoHash;
 
     downloadTorrent(link);
 
-    res.render("magnet", { data: true , hash: hash });
+    res.render("magnet", { data: true, hash: hash });
 });
 
 router.get("/stats/:hash", (req, res) => {
