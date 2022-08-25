@@ -5,6 +5,20 @@ uploadForm.addEventListener("click", () => {
 	fileInput.click();
 })
 
+const uploadModalEl = document.getElementById("uploadModal");
+const modalOptions = {
+    placement: 'center-center',
+  };
+const uploadModal = new Modal(uploadModalEl,modalOptions);
+
+
+function showUpload(){
+    uploadModal.show();
+}
+
+function hideUpload(){
+    uploadModal.hide();
+}
 
 document.querySelector('#upload-button').addEventListener('click', function () {
 	// user has not chosen any file

@@ -9,14 +9,14 @@ const getFiles = async (client, PARENT_FOLDER = "1HEF6odZodvzRmEl63a2gY-cPcB4R0R
     const folderData = await client.files.list({
         supportsAllDrives: true,
         includeItemsFromAllDrives: true,
-        q: `mimeType = 'application/vnd.google-apps.folder' and '${PARENT_FOLDER}' in parents`,
+        q: `mimeType = 'application/vnd.google-apps.folder' and '${PARENT_FOLDER}' in parents and trashed = false`,
         orderBy: "name",
     } );
 
     const fileData = await client.files.list({
         supportsAllDrives: true,
         includeItemsFromAllDrives: true,
-        q: `mimeType != 'application/vnd.google-apps.folder' and '${PARENT_FOLDER}' in parents`,
+        q: `mimeType != 'application/vnd.google-apps.folder' and '${PARENT_FOLDER}' in parents and trashed = false`,
         orderBy: "name",
     } );
         

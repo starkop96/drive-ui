@@ -12,6 +12,8 @@ const checkAuth = require("./middleware/auth")
 const uploadRoute = require("./routes/upload");
 const foldersRoute = require("./routes/folder");
 const filesRoute = require("./routes/file");
+const magnetRoute = require("./routes/uploadFromMagnet");
+
 const getAuth = require('./utils/authServiceAccount');
 const app = express();
 
@@ -23,7 +25,7 @@ app.use(checkAuth);
 app.use("/upload",uploadRoute);
 app.use("/folder",foldersRoute);
 app.use("/file",filesRoute);
-
+app.use("/magnet",magnetRoute);
 
 app.use(express.static("public"));
 app.set("view engine","ejs");
